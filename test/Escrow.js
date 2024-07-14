@@ -6,15 +6,64 @@ const tokens = (n) => {
 }
 
 describe('Escrow', () => {
-    it("Save the Addresses", async () => {
 
-        const signers  = await ethers.getSigners(); // Returns accounts available in the local Ethereum environment
-        console.log(signers);
+    let buyer, seller, inspector, lender;
+    let realEstate, escrow;
 
-        const RealEstate = await ethers.getContractFactory("RealEstate");
-        const realEstate = await RealEstate.deploy();
-        console.log(realEstate.address);
+    beforeEach(async () =>{
+        [buyer, seller, inspector, lender] = await ethers.getSigners();
 
+        console.log(buyer.address)
+        console.log(seller.address)
+        console.log(inspector.address)
+        console.log(lender.address)
 
+        // Deploy the RealEstate
+        const RealEstate = await ethers.getContractFactory('RealEstate');
+        realEstate = await RealEstate.deploy();
+        // Mint
+       let transaction = await realEstate.connect(seller).mintFunc("https://ipfs.io/ipfs/QmTudSYeM7mz3PkYEWXWqPjomRPHogcMFSq7XAvsvsgAPS");
+       await transaction.wait();
+
+       
+
+       // Deploy Escrow
+       const Escrow = await ethers.getContractFactory('Escrow')
+       escrow = await Escrow.deploy(
+            await realEstate.getAddress(), // RealEstate is a contract, so get its address using await realEstate.getAddress()
+            seller.address,
+            inspector.address,
+            lender.address
+       )
+      
     })
+
+
+    describe('Deployments', () => {
+
+        it('Returns NFT address', async () => {
+            const result = await escrow.nftAddress()
+            expect(result).to.be.equal(await realEstate.getAddress())
+        })
+    
+        it('Returns seller', async () => {
+            const result = await escrow.seller()
+            expect(result).to.be.equal(seller.address)
+        })
+    
+        it('Returns inspector', async () => {
+            const result = await escrow.inspector()
+            expect(result).to.be.equal(inspector.address)
+        })
+    
+        it('Returns lender', async () => {
+            const result = await escrow.lender()
+            expect(result).to.be.equal(lender.address)
+        })
+    })
+
 })
+
+
+
+
