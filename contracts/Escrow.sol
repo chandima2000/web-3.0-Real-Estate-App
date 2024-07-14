@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.26;
+pragma solidity ^0.8.0;
 
 interface IERC721 {
     function transferFrom(
@@ -10,5 +10,20 @@ interface IERC721 {
 }
 
 contract Escrow {
+    address public lender;
+    address public inspector;
+    address payable public sellor;  // Sellor recievs crypto currency
+    address public nftAddress;
 
+    constructor (
+        address _lender, 
+        address _inspector, 
+        address payable _sellor,
+        address _nftAddress
+    ){
+        lender=_lender;
+        inspector=_inspector;
+        sellor=_sellor;
+        nftAddress=_nftAddress;
+    }
 }
