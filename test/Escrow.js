@@ -6,9 +6,15 @@ const tokens = (n) => {
 }
 
 describe('Escrow', () => {
-    it("Display the Address", async () => {
-        const RealState = await ethers.getContractFactory("RealEstate");
-        const realState = await RealState.deploy();
-        console.log(realState.address)
+    it("Save the Addresses", async () => {
+
+        const signers  = await ethers.getSigners(); // Returns accounts available in the local Ethereum environment
+        console.log(signers);
+
+        const RealEstate = await ethers.getContractFactory("RealEstate");
+        const realEstate = await RealEstate.deploy();
+        console.log(realEstate.address);
+
+
     })
 })
