@@ -6,5 +6,9 @@ const tokens = (n) => {
 }
 
 describe('Escrow', () => {
-
+    it("Display the Address", async () => {
+        const RealState = await ethers.getContractFactory("RealEstate");
+        const realState = await RealState.deploy();
+        console.log(realState.address)
+    })
 })
