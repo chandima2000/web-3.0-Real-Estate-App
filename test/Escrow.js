@@ -1,8 +1,9 @@
 const { expect } = require('chai');
 const { ethers } = require('hardhat');
 
+// Convert to Ether
 const tokens = (n) => {
-    return ethers.utils.parseUnits(n.toString(), 'ether')
+    return ethers.parseUnits( n.toString(),"ether")
 }
 
 describe('Escrow', () => {
@@ -35,6 +36,14 @@ describe('Escrow', () => {
             inspector.address,
             lender.address
        )
+
+       // Approve Property
+       transaction = await realEstate.connect(seller).approve(await escrow.getAddress(),1);
+       await transaction.wait();
+
+       // List the Property
+       transaction = await escrow.connect(seller).propertyList(1,tokens(10),tokens(5),buyer.address)
+       await transaction.wait();
       
     })
 
@@ -46,20 +55,49 @@ describe('Escrow', () => {
             expect(result).to.be.equal(await realEstate.getAddress())
         })
     
-        it('Returns seller', async () => {
+        it('Returns the seller', async () => {
             const result = await escrow.seller()
             expect(result).to.be.equal(seller.address)
         })
     
-        it('Returns inspector', async () => {
+        it('Returns the inspector', async () => {
             const result = await escrow.inspector()
             expect(result).to.be.equal(inspector.address)
         })
     
-        it('Returns lender', async () => {
+        it('Returns the lender', async () => {
             const result = await escrow.lender()
             expect(result).to.be.equal(lender.address)
         })
+    })
+
+    describe("Listing a New Property", async () => {
+
+        it("Update the List", async () => {
+            const result = await escrow.isListed(1);
+            expect(result).to.be.equal(true);
+        })
+
+        it("Update the OwnerShip of the NFT", async () =>{
+            const result = await realEstate.ownerOf(1);
+            expect(result).to.be.equal(await escrow.getAddress())
+        })
+
+        it("Returns the Buyer", async () => {
+            const result = await escrow.buyer(1);
+            expect(result).to.be.equal(buyer.address)
+        })
+        
+        it("Returns the Purchase Price", async () => {
+            const result = await escrow.purchasePrice(1);
+            expect(result).to.be.equal(tokens(10))
+        })
+
+        it("Returns the Escrow amount", async () => {
+            const result = await escrow.escrowAmount(1);
+            expect(result).to.be.equal(tokens(5))
+        })
+
     })
 
 })
