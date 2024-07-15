@@ -183,6 +183,59 @@ describe('Escrow', () => {
         })
     })
 
+
+    describe('Cancel Sale', async () => {
+        it('Refunds buyer if inspection not passed', async () => {
+            // Buyer deposits earnest money
+            let transaction = await escrow.connect(buyer).depositEarnest(1, { value: tokens(5) });
+            await transaction.wait();
+
+            // Set inspection status to not passed
+            transaction = await escrow.connect(inspector).updateInspectionStatus(1, false);
+            await transaction.wait();
+
+            // Buyer's balance before cancellation
+            const buyerBalanceBefore = await ethers.provider.getBalance(buyer.address);
+
+            // Cancel the sale
+            transaction = await escrow.connect(buyer).cancelSale(1);
+            await transaction.wait();
+
+            // Buyer's balance after cancellation
+            const buyerBalanceAfter = await ethers.provider.getBalance(buyer.address);
+
+            const balanceDifference = buyerBalanceAfter-buyerBalanceBefore;
+            
+            // Check if the buyer's balance has increased by the escrow amount
+            expect(balanceDifference).to.be.closeTo(tokens(5), ethers.parseUnits("0.01", "ether"));
+        });
+
+        it('Transfers balance to seller if inspection passed', async () => {
+            // Buyer deposits earnest money
+            let transaction = await escrow.connect(buyer).depositEarnest(1, { value: tokens(5) });
+            await transaction.wait();
+
+            // Set inspection status to passed
+            transaction = await escrow.connect(inspector).updateInspectionStatus(1, true);
+            await transaction.wait();
+
+            // Capture seller's balance before cancellation
+            const sellerBalanceBefore = await ethers.provider.getBalance(seller.address);
+
+            // Cancel the sale
+            transaction = await escrow.connect(seller).cancelSale(1);
+            await transaction.wait();
+
+            // Capture seller's balance after cancellation
+            const sellerBalanceAfter = await ethers.provider.getBalance(seller.address);
+
+            const balanceDifference = sellerBalanceAfter - sellerBalanceBefore;
+
+            // Check if the seller's balance has increased by the escrow amount
+            expect(balanceDifference).to.be.closeTo(tokens(5), ethers.parseUnits("0.01", "ether"));
+        });
+    })
+
 })
 
 
