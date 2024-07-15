@@ -139,5 +139,15 @@ contract Escrow {
     }
 
     
+    // Cancel the Sale
+    // if inspection status is not approved, then refund, otherwise send to seller
+    function cancelSale(uint256 _nftID) public {
+         if (isInspectionPassed[_nftID] == false) {
+            payable(buyer[_nftID]).transfer(address(this).balance);
+        } else {
+            payable(seller).transfer(address(this).balance);
+        }
+    } 
 
+    
 }
