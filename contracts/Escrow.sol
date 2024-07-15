@@ -66,6 +66,7 @@ contract Escrow {
             uint256 _escrowAmount, 
             address _buyer
         ) public payable onlySeller{
+
         // Transfers the specified NFT from the seller to the escrow contract.
         IERC721(nftAddress).transferFrom(msg.sender, address(this), _nftID);
 
@@ -101,8 +102,42 @@ contract Escrow {
     }
 
 
-    function lenderApprove(uint256 _nftID) public{
+    function lenderApproval(uint256 _nftID) public{
         isApproved[_nftID][msg.sender] = true;
     }
+
+
+    //  completes the sale of a property for send NFT
+
+     function finalizedSale(uint256 _nftID) public {
+
+        // Ensure the inspection has been passed
+        require(isInspectionPassed[_nftID],"Inspection not passed.");
+
+        // Ensure the buyer has approved the sale
+        require(isApproved[_nftID][buyer[_nftID]],"Buyer not approved.");
+
+        // Ensure the seller has approved the sale
+        require(isApproved[_nftID][seller], "Seller not approved.");
+
+        // Ensure the lender has approved the sale
+        require(isApproved[_nftID][lender],"Lender not approved.");
+
+        // Ensure the contract has enough balance to cover the purchase price
+        require(address(this).balance >= purchasePrice[_nftID],"Insufficient funds to cover the purchase price.");
+
+        // Mark the property as no longer listed
+        isListed[_nftID] = false;
+
+        // Transfer the balance to the seller
+        (bool success, ) = payable(seller).call{value: address(this).balance}("");
+        require(success);
+        
+
+        // Transfer NFT from the escrow contract to the buyer.
+        IERC721(nftAddress).transferFrom(address(this), buyer[_nftID], _nftID);
+    }
+
+    
 
 }
