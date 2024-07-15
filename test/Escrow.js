@@ -205,7 +205,7 @@ describe('Escrow', () => {
             const buyerBalanceAfter = await ethers.provider.getBalance(buyer.address);
 
             const balanceDifference = buyerBalanceAfter-buyerBalanceBefore;
-            
+
             // Check if the buyer's balance has increased by the escrow amount
             expect(balanceDifference).to.be.closeTo(tokens(5), ethers.parseUnits("0.01", "ether"));
         });
@@ -219,14 +219,14 @@ describe('Escrow', () => {
             transaction = await escrow.connect(inspector).updateInspectionStatus(1, true);
             await transaction.wait();
 
-            // Capture seller's balance before cancellation
+            // seller's balance before cancellation
             const sellerBalanceBefore = await ethers.provider.getBalance(seller.address);
 
             // Cancel the sale
             transaction = await escrow.connect(seller).cancelSale(1);
             await transaction.wait();
 
-            // Capture seller's balance after cancellation
+            // seller's balance after cancellation
             const sellerBalanceAfter = await ethers.provider.getBalance(seller.address);
 
             const balanceDifference = sellerBalanceAfter - sellerBalanceBefore;
