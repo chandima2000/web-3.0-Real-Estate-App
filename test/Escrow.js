@@ -15,10 +15,10 @@ describe('Escrow', () => {
     beforeEach(async () =>{
         [buyer, seller, inspector, lender] = await ethers.getSigners();
 
-        console.log(buyer.address)
-        console.log(seller.address)
-        console.log(inspector.address)
-        console.log(lender.address)
+        // console.log(buyer.address)
+        // console.log(seller.address)
+        // console.log(inspector.address)
+        // console.log(lender.address)
 
         // Deploy the RealEstate
         const RealEstate = await ethers.getContractFactory('RealEstate');
