@@ -149,6 +149,40 @@ describe('Escrow', () => {
         })
     })
 
+
+    describe('finalizedSale', () => {
+        beforeEach(async () => {
+            let transaction = await escrow.connect(buyer).depositEarnest(1, { value: tokens(5) })
+            await transaction.wait()
+
+            transaction = await escrow.connect(inspector).updateInspectionStatus(1, true)
+            await transaction.wait()
+
+            transaction = await escrow.connect(buyer).lenderApproval(1)
+            await transaction.wait()
+
+            transaction = await escrow.connect(seller).lenderApproval(1)
+            await transaction.wait()
+
+            transaction = await escrow.connect(lender).lenderApproval(1)
+            await transaction.wait()
+            
+            // send Ether from the lender to the escrow 
+            await lender.sendTransaction({ to: await escrow.getAddress(), value: tokens(5) })
+
+            transaction = await escrow.connect(seller).finalizedSale(1)
+            await transaction.wait()
+        })
+
+        it('Updates ownership of NFT', async () => {
+            expect(await realEstate.ownerOf(1)).to.be.equal(buyer.address)
+        })
+
+        it('Updates balance of Escrow', async () => {
+            expect(await escrow.getBalance()).to.be.equal(0)
+        })
+    })
+
 })
 
 
