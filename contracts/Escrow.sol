@@ -43,7 +43,7 @@ contract Escrow {
     mapping(uint256 => uint256) public escrowAmount;
     mapping(uint256 => address) public buyer;
     mapping(uint256 => bool) public isInspectionPassed;
-
+    mapping(uint256 => mapping(address => bool)) public isApproved;
 
 
     constructor (
@@ -100,5 +100,9 @@ contract Escrow {
             isInspectionPassed[_nftID] = _passed;
     }
 
+
+    function lenderApprove(uint256 _nftID) public{
+        isApproved[_nftID][msg.sender] = true;
+    }
 
 }
