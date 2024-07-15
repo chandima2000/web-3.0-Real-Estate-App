@@ -19,6 +19,8 @@ contract Escrow {
     address payable public seller;  // Sellor recievs crypto currency
     address public nftAddress;
 
+
+    // Modifiers
     modifier onlySeller() {
         require(msg.sender == seller,"Only seller can call this method.");
         _;
@@ -29,10 +31,20 @@ contract Escrow {
         _;
     }
 
+    modifier onlyInspector() {
+        require(msg.sender == inspector, "Only Inspector can call this method");
+        _;
+    }
+
+
+
     mapping(uint256 => bool) public isListed;
     mapping(uint256 => uint256) public purchasePrice;
     mapping(uint256 => uint256) public escrowAmount;
     mapping(uint256 => address) public buyer;
+    mapping(uint256 => bool) public isInspectionPassed;
+
+
 
     constructor (
         address _nftAddress,
@@ -64,17 +76,28 @@ contract Escrow {
 
     }
 
+
     // Buyer Depositing Earnest
     function depositEarnest (uint256 _nftID) public payable onlyBuyer(_nftID) {
         require(msg.value >= escrowAmount[_nftID], "The amount is not Sufficient.");
     }
 
+
     // Handles the Ether, whic is recieved to this Contract
     receive() external payable {}
+
 
     // Returns the balance of Ether held by the escrow contract
     function getBalance() public view returns(uint256) {
         return address(this).balance;
+    }
+
+
+    //  Update the Inspection Status
+    function updateInspectionStatus(uint256 _nftID, bool _passed) 
+        public
+        onlyInspector {
+            isInspectionPassed[_nftID] = _passed;
     }
 
 
