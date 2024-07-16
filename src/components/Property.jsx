@@ -16,6 +16,8 @@ const Property = ({ home, provider, escrow, togglePop }) => {
     const [inspector, setInspector] = useState(null);
     const [seller, setSeller] = useState(null);
 
+    const [newOwner, setNewOwner] = useState(null);
+
     const fetchDetails = async () => {
 
          // Buyer
@@ -50,6 +52,18 @@ const Property = ({ home, provider, escrow, togglePop }) => {
         setHasInspected(hasInspected);
 
     }
+
+    const getNewOwner = async () => {
+        const newOwner = await escrow.buyer(home.id);
+        setNewOwner(newOwner);
+    }
+
+    useEffect(() => {
+
+        fetchDetails();
+        getNewOwner();
+
+    }, [hasSold])
 
   return (
     <div className="home">
