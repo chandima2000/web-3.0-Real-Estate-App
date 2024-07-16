@@ -11,9 +11,9 @@ const Navigation = ({ account, setAccount }) => {
     return (
         <nav>
             <ul className='nav__links'>
-                <li><a href="#">Buy</a></li>
-                <li><a href="#">Rent</a></li>
-                <li><a href="#">Sell</a></li>
+                <li><a href="/">Buy</a></li>
+                <li><a href="/rent">Rent</a></li>
+                <li><a href="/sell">Sell</a></li>
             </ul>
 
             <div className='nav__brand'>
@@ -34,7 +34,7 @@ const Navigation = ({ account, setAccount }) => {
                     className='nav__connect'
                     onClick={connectHandler}
                 >
-                    Connect
+                    Connect to Wallet
                 </button>
             )}
         </nav>
