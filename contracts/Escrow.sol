@@ -102,7 +102,7 @@ contract Escrow {
     }
 
 
-    function lenderApproval(uint256 _nftID) public{
+    function saleApproval(uint256 _nftID) public{
         isApproved[_nftID][msg.sender] = true;
     }
 

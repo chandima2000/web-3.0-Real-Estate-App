@@ -130,15 +130,15 @@ describe('Escrow', () => {
         
     })
 
-    describe("Lender Approval", async () => {
+    describe("Sale Approval", async () => {
         beforeEach(async () => {
-            let transaction = await escrow.connect(buyer).lenderApproval(1);
+            let transaction = await escrow.connect(buyer).saleApproval(1);
             await transaction.wait();
 
-            transaction = await escrow.connect(lender).lenderApproval(1);
+            transaction = await escrow.connect(lender).saleApproval(1);
             await transaction.wait();
 
-            transaction = await escrow.connect(inspector).lenderApproval(1);
+            transaction = await escrow.connect(inspector).saleApproval(1);
             await transaction.wait();
         })
 
@@ -158,13 +158,13 @@ describe('Escrow', () => {
             transaction = await escrow.connect(inspector).updateInspectionStatus(1, true)
             await transaction.wait()
 
-            transaction = await escrow.connect(buyer).lenderApproval(1)
+            transaction = await escrow.connect(buyer).saleApproval(1)
             await transaction.wait()
 
-            transaction = await escrow.connect(seller).lenderApproval(1)
+            transaction = await escrow.connect(seller).saleApproval(1)
             await transaction.wait()
 
-            transaction = await escrow.connect(lender).lenderApproval(1)
+            transaction = await escrow.connect(lender).saleApproval(1)
             await transaction.wait()
             
             // send Ether from the lender to the escrow 
