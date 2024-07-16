@@ -4,7 +4,7 @@ import { ethers } from 'ethers';
 // Components
 import Navigation from './components/Navigation';
 import Header from './components/Header';
-import Home from './components/Home';
+import Property from './components/Property';
 
 // ABIs
 import RealEstate from './abis/RealEstate.json'
@@ -105,7 +105,7 @@ function App() {
       </div>
 
       {toggle && (
-        <Home home={home} provider={provider} account={account} escrow={escrow} togglePop={togglePop} />
+        <Property home={home} provider={provider} account={account} escrow={escrow} togglePop={togglePop} />
       )}
 
     </div>
