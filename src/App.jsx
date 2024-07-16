@@ -15,12 +15,25 @@ import config from './config.json';
 
 function App() {
 
+  const [account, setAccount] = useState([]);
+
+  const loadBlockchainData = async () => {
+    const provider = new ethers.BrowserProvider(window.ethereum)
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    setAccount(accounts[0]);
+    console.log(account[0])
+  }
+  
+  useEffect(() => {
+    loadBlockchainData();
+  },[]);
+
   return (
     <div>
 
       <div className='cards__section'>
-
-        <h3>Welcome to Millow</h3>
+        <Navigation/>
+        <h3>Welcome to Real Estate</h3>
 
       </div>
 
