@@ -9,10 +9,15 @@
 :root {
   --clr-white: #FFFFFF;
   --clr-black: #202020;
+  --clr-black-2: #0e0a0a;
   --clr-grey: #707070;
   --clr-blue: #6C63FF;
   --clr-blue-2: #4c46b6;
+  --clr-red: #e60a0a;
+  --clr-red-2: #850b0b;
   --clr-green: #4fb646;
+  --clr-green-2: #069c95;
+  
 }
 
 body {
@@ -20,9 +25,11 @@ body {
   font-family: "Open Sans";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--clr-black-2);
+  
 }
 
-/* ------------------------------------------------------ */
+
 /* -- NAVIGATION -- */
 
 nav {
@@ -65,10 +72,27 @@ nav {
 .nav__links li a {
   text-decoration: none;
   color: var(--clr-black);
+
+  width: 175px;
+  height: 150px;
+  margin: 5px;
+  padding: 10px;
+  padding-left: 25px;
+  padding-right: 25px;
+
+  background-color: var(--clr-red);
+  color: var(--clr-white);
+
+  border: none;
+  border-radius: 4px;
+
+  font-family: "Open Sans";
+  font-size: 1.10em;
+  font-weight: 600;
 }
 
 .nav__links li a:hover {
-  color: var(--clr-blue);
+  color: var(--clr-black);
 }
 
 .nav__connect {
@@ -76,7 +100,7 @@ nav {
   height: 50px;
   margin: 0 auto;
 
-  background-color: var(--clr-blue);
+  background-color: var(--clr-red);
   color: var(--clr-white);
 
   border: none;
@@ -91,10 +115,30 @@ nav {
 }
 
 .nav__connect:hover {
-  background-color: var(--clr-blue-2);
+  background-color: var(--clr-red-2);
 }
 
-/* ------------------------------------------------------ */
+
+.nav__connect-2{
+  width: 175px;
+  height: 50px;
+  margin: 0 auto;
+
+  background-color: var(--clr-green);
+  color: var(--clr-white);
+
+  border: none;
+  border-radius: 4px;
+
+  font-family: "Open Sans";
+  font-size: 1.10em;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: all 250ms ease;
+}
+
+
 /* -- HEADER -- */
 
 header {
@@ -106,14 +150,27 @@ header {
   position: relative;
 }
 
-.header__title {
+.header__title-1 {
   position: absolute;
-  top: 25%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
 
   color: var(--clr-white);
-  font-size: 2em;
+  font-size: 3em;
+
+  width: 100%;
+  text-align: center;
+}
+
+.header__title-2 {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  color: var(--clr-white);
+  font-size: 1.5em;
 
   width: 100%;
   text-align: center;
@@ -150,6 +207,7 @@ header {
 
 .cards__section h3 {
   margin: 50px 0 20px;
+  color: var(--clr-white);
 }
 
 .cards {
