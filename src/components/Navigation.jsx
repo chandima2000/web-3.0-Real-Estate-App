@@ -10,11 +10,6 @@ const Navigation = ({ account, setAccount }) => {
 
     return (
         <nav>
-            <ul className='nav__links'>
-                <li><a href="/">Buy</a></li>
-                <li><a href="/rent">Rent</a></li>
-                <li><a href="/sell">Sell</a></li>
-            </ul>
 
             <div className='nav__brand'>
                 <img src={logo} alt="Logo" />

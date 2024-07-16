@@ -34,8 +34,8 @@ body {
 /* -- NAVIGATION -- */
 
 nav {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -43,13 +43,14 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-
+  
   padding: 20px;
 }
 
 .nav__brand img {
   max-width: 125px;
   height: auto;
+  margin-left: 85%;
 }
 
 .nav__brand h1 {
@@ -58,59 +59,20 @@ nav {
   font-weight: 800;
 }
 
-.nav__links {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
-  list-style: none;
-}
-
-.nav__links li {
-  margin: 0 15px;
-}
-
-.nav__links li a {
-  text-decoration: none;
-  color: var(--clr-black);
-
-  width: 175px;
-  height: 150px;
-  margin: 5px;
-  padding: 10px;
-  padding-left: 25px;
-  padding-right: 25px;
-
-  background-color: var(--clr-red);
-  color: var(--clr-white);
-
-  border: none;
-  border-radius: 4px;
-
-  font-family: "Open Sans";
-  font-size: 1.10em;
-  font-weight: 600;
-}
-
-.nav__links li a:hover {
-  color: var(--clr-black);
-}
-
-.nav__connect {
+.nav__connect,
+.nav__connect-2 {
   width: 175px;
   height: 50px;
-  margin: 0 auto;
-
+  margin-left: auto;
+  margin-right: 15%;
   background-color: var(--clr-red);
   color: var(--clr-white);
-
   border: none;
   border-radius: 4px;
-
   font-family: "Open Sans";
   font-size: 1.10em;
   font-weight: 600;
-
   cursor: pointer;
   transition: all 250ms ease;
 }
@@ -119,31 +81,15 @@ nav {
   background-color: var(--clr-red-2);
 }
 
-
-.nav__connect-2{
-  width: 175px;
-  height: 50px;
-  margin: 0 auto;
-
+.nav__connect-2 {
   background-color: var(--clr-green);
-  color: var(--clr-white);
-
-  border: none;
-  border-radius: 4px;
-
-  font-family: "Open Sans";
-  font-size: 1.10em;
-  font-weight: 600;
-
-  cursor: pointer;
-  transition: all 250ms ease;
 }
 
 
 /* -- HEADER -- */
 
 header {
-  background-image: url("./assets/houses.png");
+  background-image: url("./assets/houses.jpg");
   background-position: center;
   background-size: cover;
   min-height: 40vh;
@@ -153,12 +99,12 @@ header {
 
 .header__title-1 {
   position: absolute;
-  top: 45%;
+  top: 15%;
   left: 50%;
   transform: translate(-50%, -50%);
 
   color: var(--clr-white);
-  font-size: 3em;
+  font-size: 2.5em;
 
   width: 100%;
   text-align: center;
@@ -166,35 +112,28 @@ header {
 
 .header__title-2 {
   position: absolute;
-  top: 65%;
+  top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
 
   color: var(--clr-white);
-  font-size: 1.5em;
+  font-size: 2em;
 
   width: 100%;
   text-align: center;
 }
 
-.header__search {
-  padding: 25px;
-  min-width: 40%;
-
+.header__para{
   position: absolute;
-  top: 45%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
 
-.header__search::placeholder {
-  font-family: "Open Sans";
-  font-size: 1.25em;
-  font-weight: 600;
-}
+  color: var(--clr-white);
+  font-size: 1.5rem;
 
-.header__search:hover {
-  outline: 1px solid var(--clr-blue);
+  width: 100%;
+  text-align: center;
 }
 
 
