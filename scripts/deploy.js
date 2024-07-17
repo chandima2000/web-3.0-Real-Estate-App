@@ -1,10 +1,6 @@
 // We require the Hardhat Runtime Environment explicitly here. This is optional
 // but useful for running the script in a standalone fashion through `node <script>`.
 
-// You can also run a script with `npx hardhat run <script>`. If you do that, Hardhat
-// will compile your contracts, add the Hardhat Runtime Environment's members to the
-// global scope, and execute the script.
-
 
 // This code is a Hardhat script for deploying smart contracts.
 
@@ -51,7 +47,7 @@ async function main() {
   console.log(`Deployed Escrow Contract at: ${await escrow.getAddress()}`);
   console.log(`Listing 3 properties...\n`);
 
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 5; i++) {
     // Approve properties...
     let transaction = await realEstate.connect(seller).approve(await escrow.getAddress(), i + 1)
     await transaction.wait()
