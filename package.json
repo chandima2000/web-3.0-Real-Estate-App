@@ -38,6 +38,7 @@
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "@openzeppelin/contracts": "^4.7.3",
+    "@babel/plugin-proposal-private-property-in-object":"",
     "hardhat": "^2.12.0"
   }
 }
